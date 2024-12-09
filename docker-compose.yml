@@ -1,6 +1,6 @@
 services:
   db:
-    image: postgres:latest  # Используйте последнюю версию PostgreSQL
+    image: postgres:latest  # Использует последнюю версию PostgreSQL
     environment:
       POSTGRES_DB: info_users
       POSTGRES_USER: user
