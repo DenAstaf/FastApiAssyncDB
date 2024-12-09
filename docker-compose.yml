@@ -1,0 +1,20 @@
+services:
+  db:
+    image: postgres:latest  # Используйте последнюю версию PostgreSQL
+    environment:
+      POSTGRES_DB: info_users
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+    ports:
+      - "5432:5432"  # Проброс порта к бд
+
+  app:
+    build: .  # Указывает на текущую директорию, где находится Dockerfile
+    ports:
+      - "8000:8000"  # Проброс порта к web приложению
+    depends_on:
+      - db  # Указывает, что fastapi запустится после db
+    environment:
+      DATABASE_URL: "postgresql+asyncpg://user:password@db:5432/info_users"  # строка подключения к бд
+    volumes:
+      - .:/app  # Монтирует текущую директорию в app - путь внутри контейнера. При внесении изменений в код, они будут отображаться, и не надо будет пересобирать образ.

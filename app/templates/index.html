@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="/static/styles.css">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+        {% block title %}
+        <title>Главная</title>
+        {% endblock %}
+    </head>
+    <body>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
+
+        <div class="wrapper">
+            <nav class="navbar navbar-expand-lg bg-body-tertiary" data-bs-theme="dark">
+                <div class="container-fluid">
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li><a class="nav-link" href="http://127.0.0.1:8000">Главная</a></li>
+                      </ul>
+                    </div>
+                </div>
+            </nav>
+            <div class="content">
+                {% block content %}
+                <p>{{ message }}</p>
+                {% if users %}
+                    <!-- Если есть записи, выводим их список -->
+                    <h2>Список пользователей</h2>
+                    <ul>
+                        <!-- Цикл по всем записям -->
+                        {% for user in users %}
+                        <li>
+                            id: <b>{{ user.id }}</b><br> Имя пользователя: <b>{{ user.name }}</b><br> Ник: <b>{{ user.username }}</b><br> Почта: <b>{{ user.email }}</b>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+                <!-- Форма для добавления новой записи -->
+                <h4>Добавить новую запись</h4>
+                <form action="/add" method="post">
+                    <!-- Поле для ввода name -->
+                    <label for="name">Имя:</label>
+                    <input type="text" id="name" name="name" required><br><br>
+
+                    <!-- Поле для ввода username -->
+                    <label for="username">Ник:</label>
+                    <input type="text" id="username" name="username" required><br><br>
+
+                    <!-- Поле для ввода email -->
+                    <label for="email">Почта:</label>
+                    <input type="text" id="email" name="email" required><br><br>
+
+                    <!-- Кнопка для отправки формы -->
+                    <button type="submit">Добавить</button>
+                </form>
+                <br>
+                <h4>Добавить всех пользователей с портала: jsonplaceholder.typicode.com/users</h4>
+                <form action="/add-all-user" method="post">
+                    <button type="submit">Добавить всех пользователей</button>
+                </form>
+                {% endblock %}
+            </div>
+            <div class="footer">
+                <footer class="bg-body-tertiary text-center text-lg-start">
+                    <div class="text-center p-3" style="background-color: #000000;color: #A9A9A9">
+                        © 2024 Copyright: @den_a_s_t
+                    </div>
+                </footer>
+            </div>
+        </div>
+    </body>
+</html>
